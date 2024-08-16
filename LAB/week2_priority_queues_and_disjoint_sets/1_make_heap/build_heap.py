@@ -1,36 +1,43 @@
 # python3
 
 
-def build_heap(data):
-    """Build a heap from ``data`` inplace.
+class MinHeap:
+    def __init__(self, array):
+        self.A = array
+        self.size = len(self.A)
+        self.swaps = []
 
-    Returns a sequence of swaps performed by the algorithm.
-    """
-    # The following naive implementation just sorts the given sequence
-    # using selection sort algorithm and saves the resulting sequence
-    # of swaps. This turns the given array into a heap, but in the worst
-    # case gives a quadratic number of swaps.
-    #
-    # TODO: replace by a more efficient implementation
-    swaps = []
-    for i in range(len(data)):
-        for j in range(i + 1, len(data)):
-            if data[i] > data[j]:
-                swaps.append((i, j))
-                data[i], data[j] = data[j], data[i]
-    return swaps
+
+    def SiftDown(self, i):
+        min_index = i
+        left = 2 * i + 1  # left child
+        right = 2 * i + 2  # right child
+        if left < self.size and self.A[left] < self.A[min_index]:
+            min_index = left
+        if right < self.size and self.A[right] < self.A[min_index]:
+            min_index = right
+        if min_index != i:
+            self.swaps.append((i, min_index))
+            self.A[i], self.A[min_index] = self.A[min_index], self.A[i]
+            self.SiftDown(min_index)
+
+    def BuildHeap(self):
+        n = self.size
+        for i in range(n // 2 - 1, -1, -1):
+            self.SiftDown(i)
 
 
 def main():
     n = int(input())
-    data = list(map(int, input().split()))
-    assert len(data) == n
+    array = list(map(int, input().split()))
+    assert len(array) == n
 
-    swaps = build_heap(data)
-
+    heap = MinHeap(array)
+    MinHeap.BuildHeap(heap)
+    swaps = heap.swaps
     print(len(swaps))
-    for i, j in swaps:
-        print(i, j)
+    for swap in swaps:
+        print(*swap)
 
 
 if __name__ == "__main__":
