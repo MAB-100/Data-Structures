@@ -41,8 +41,8 @@ def main():
     for i in range(n_queries):
         dst, src = map(int, input().split())
         db.MergeTables(dst - 1, src - 1)
-        print('parent: ', db.parent)
-        print('row counts: ', db.row_counts)
+        # print('parent: ', db.parent)
+        # print('row counts: ', db.row_counts)
         print(db.max_row_count)
 
 
