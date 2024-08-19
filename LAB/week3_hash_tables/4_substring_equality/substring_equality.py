@@ -34,7 +34,7 @@ if __name__ == '__main__':
     x = 263
     hash_table1 = HashTable(string, m, x)
     hash_table2 = HashTable(string, m2, x)
-    print(hash_table1, hash_table2)
+    # print(hash_table1, hash_table2)
     for i in range(n_queries):
         a, b, l = map(int, input().split())
         print(AreEqual(hash_table1, hash_table2, m, m2, x, a, b, l))
